@@ -6,6 +6,8 @@ from flask_sqlalchemy import SQLAlchemy
 import datetime
 import pandas as pd
 from logging.config import dictConfig
+from  dotenv import dotenv_values, load_dotenv
+config = dotenv_values(".env")
 
 direc=os.path.abspath(os.path.dirname(__file__))
 app=Flask(__name__)

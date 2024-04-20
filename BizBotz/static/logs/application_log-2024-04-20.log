@@ -1,0 +1,11 @@
+[April 20, 2024 18:53:18 India Standard Time] INFO | _internal >>> [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[April 20, 2024 18:53:18 India Standard Time] INFO | _internal >>> [33mPress CTRL+C to quit[0m
+[April 20, 2024 18:53:18 India Standard Time] INFO | _internal >>>  * Restarting with watchdog (windowsapi)
+[April 20, 2024 18:53:20 India Standard Time] WARNING | _internal >>>  * Debugger is active!
+[April 20, 2024 18:53:20 India Standard Time] INFO | _internal >>>  * Debugger PIN: 503-343-202
+[April 20, 2024 18:53:28 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\BizBotz\\__init__.py', reloading
+[April 20, 2024 18:53:28 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\BizBotz\\__init__.py', reloading
+[April 20, 2024 18:53:29 India Standard Time] INFO | _internal >>>  * Restarting with watchdog (windowsapi)
+[April 20, 2024 18:53:30 India Standard Time] WARNING | _internal >>>  * Debugger is active!
+[April 20, 2024 18:53:30 India Standard Time] INFO | _internal >>>  * Debugger PIN: 503-343-202
