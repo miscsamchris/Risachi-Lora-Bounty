@@ -1,4 +1,4 @@
-from BizBotz import db,app
+from BizBotz import db,app,admin,ModelView
 from sqlalchemy import types
 from sqlalchemy.sql import func
 from sqlalchemy.dialects.mysql.base import MSBinary
@@ -32,7 +32,7 @@ class Company(db.Model):
     company_name=db.Column(db.Text, nullable=False,server_default='')
     company_description=db.Column(db.Text,server_default='')
     company_narrative=db.Column(db.Text,server_default='')
-    company_uuid = db.Column('item_uuid',UUID(),default=uuid.uuid4)
+    item_uuid = db.Column('item_uuid',UUID(),default=uuid.uuid4)
     datasets = db.relationship('Dataset', backref='company', lazy=True)
     models = db.relationship('FinetunedModel', backref='company', lazy=True)
 
@@ -40,11 +40,11 @@ class Dataset(db.Model):
     __tablename__="Dataset"
     id=db.Column(db.Integer,primary_key=True, autoincrement=True, nullable=False)
     dataset_name=db.Column(db.Text, nullable=False,server_default='')
-    dataset_descriptione=db.Column(db.Text,server_default='')
+    dataset_description=db.Column(db.Text,server_default='')
     company_id= db.Column(db.Integer, db.ForeignKey('Company.id'))
     dataset_purpose=db.Column(db.Text,server_default='')
     dataset_collection_name=db.Column(db.Text,server_default='')
-    dataset_uuid = db.Column('item_uuid',UUID(),default=uuid.uuid4)
+    item_uuid = db.Column('item_uuid',UUID(),default=uuid.uuid4)
 
 
 class FinetunedModel(db.Model):
@@ -54,4 +54,9 @@ class FinetunedModel(db.Model):
     model_descriptione=db.Column(db.Text,server_default='')
     company_id= db.Column(db.Integer, db.ForeignKey('Company.id'))
     model_path=db.Column(db.Text,server_default='')
-    model_uuid = db.Column('item_uuid',UUID(),default=uuid.uuid4)
+    item_uuid = db.Column('item_uuid',UUID(),default=uuid.uuid4)
+
+
+admin.add_view(ModelView(Company, db.session))
+admin.add_view(ModelView(Dataset, db.session))
+admin.add_view(ModelView(FinetunedModel, db.session))
