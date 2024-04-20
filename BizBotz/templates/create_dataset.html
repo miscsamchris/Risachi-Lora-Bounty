@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dataset Form</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message[1] }} alert-dismissible fade show" role="alert">
+      {{ message[0] }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+  <div class="container mt-5">
+    <h2>Dataset Form</h2>
+    <form id="datasetForm" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="dataset_name">Dataset Name</label>
+        <input type="text" class="form-control" id="dataset_name" name="dataset_name" required>
+      </div>
+      <div class="form-group">
+        <label for="dataset_description">Dataset Description</label>
+        <textarea class="form-control" id="dataset_description" name="dataset_description"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="dataset_purpose">Dataset Purpose</label>
+        <textarea class="form-control" id="dataset_purpose" name="dataset_purpose"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="pdf_files">PDF Files</label>
+        <input type="file" class="form-control-file" id="pdf_files" name="pdf_files" multiple accept=".pdf" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+  <!-- Bootstrap JS (Optional, if needed) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      $('#datasetForm').submit(function(e) {
+        e.preventDefault(); // Prevent form submission
+        var formData = new FormData(this);
+
+        // Perform AJAX submission
+        $.ajax({
+          url: '{{ url_for("create_dataset") }}', // Your form submission endpoint
+          type: 'POST',
+          data: formData,
+          cache: false,
+          contentType: false,
+          processData: false,
+          success: function(response) {
+            // Handle success response
+            console.log(response);
+          },
+          error: function(xhr, status, error) {
+            // Handle error response
+            console.error(xhr.responseText);
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

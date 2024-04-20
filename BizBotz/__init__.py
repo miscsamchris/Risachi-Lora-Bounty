@@ -15,6 +15,7 @@ app.config["SQLALCHEMY_DATABASE_URI"]="sqlite:///"+os.path.join(direc,"data.sqli
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"]=False
 SECRET_KEY = os.urandom(32)
 app.config['SECRET_KEY'] = SECRET_KEY
+app.config['UPLOAD_FOLDER'] = os.path.join(direc,"static","Upload")
 db=SQLAlchemy(app)
 
 datestamp = datetime.datetime.now().strftime('%Y-%m-%d')

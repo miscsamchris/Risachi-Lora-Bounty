@@ -9,3 +9,236 @@
 [April 20, 2024 18:53:29 India Standard Time] INFO | _internal >>>  * Restarting with watchdog (windowsapi)
 [April 20, 2024 18:53:30 India Standard Time] WARNING | _internal >>>  * Debugger is active!
 [April 20, 2024 18:53:30 India Standard Time] INFO | _internal >>>  * Debugger PIN: 503-343-202
+[April 20, 2024 19:08:08 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\BizBotz\\Models.py', reloading
+[April 20, 2024 19:08:08 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\BizBotz\\Models.py', reloading
+[April 20, 2024 19:08:08 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\BizBotz\\Models.py', reloading
+[April 20, 2024 19:08:09 India Standard Time] INFO | _internal >>>  * Restarting with watchdog (windowsapi)
+[April 20, 2024 19:08:11 India Standard Time] WARNING | _internal >>>  * Debugger is active!
+[April 20, 2024 19:08:11 India Standard Time] INFO | _internal >>>  * Debugger PIN: 503-343-202
+[April 20, 2024 19:48:14 India Standard Time] INFO | _internal >>>  * Detected change in 'C:\\Users\\infan\\AppData\\Roaming\\Python\\Python311\\site-packages\\flask\\wrappers.py', reloading
+[April 20, 2024 19:48:14 India Standard Time] INFO | _internal >>>  * Detected change in 'C:\\Users\\infan\\AppData\\Roaming\\Python\\Python311\\site-packages\\werkzeug\\wrappers\\__init__.py', reloading
+[April 20, 2024 19:48:14 India Standard Time] INFO | _internal >>>  * Detected change in 'C:\\Users\\infan\\AppData\\Roaming\\Python\\Python311\\site-packages\\werkzeug\\wrappers\\request.py', reloading
+[April 20, 2024 19:48:14 India Standard Time] INFO | _internal >>>  * Restarting with watchdog (windowsapi)
+[April 20, 2024 19:48:16 India Standard Time] WARNING | _internal >>>  * Debugger is active!
+[April 20, 2024 19:48:16 India Standard Time] INFO | _internal >>>  * Debugger PIN: 503-343-202
+[April 20, 2024 19:48:17 India Standard Time] INFO | _internal >>>  * Detected change in 'C:\\Users\\infan\\AppData\\Roaming\\Python\\Python311\\site-packages\\flask\\typing.py', reloading
+[April 20, 2024 19:48:17 India Standard Time] INFO | _internal >>>  * Detected change in 'C:\\Users\\infan\\AppData\\Roaming\\Python\\Python311\\site-packages\\werkzeug\\wrappers\\response.py', reloading
+[April 20, 2024 19:48:17 India Standard Time] INFO | _internal >>>  * Detected change in 'C:\\Users\\infan\\AppData\\Roaming\\Python\\Python311\\site-packages\\werkzeug\\sansio\\response.py', reloading
+[April 20, 2024 19:48:17 India Standard Time] INFO | _internal >>>  * Detected change in 'C:\\Users\\infan\\AppData\\Roaming\\Python\\Python311\\site-packages\\werkzeug\\datastructures\\__init__.py', reloading
+[April 20, 2024 19:48:17 India Standard Time] INFO | _internal >>>  * Restarting with watchdog (windowsapi)
+[April 20, 2024 19:48:19 India Standard Time] WARNING | _internal >>>  * Debugger is active!
+[April 20, 2024 19:48:19 India Standard Time] INFO | _internal >>>  * Debugger PIN: 503-343-202
+[April 20, 2024 19:48:27 India Standard Time] INFO | _internal >>>  * Detected change in 'J:\\Program Files\\Python\\Python311\\Lib\\site-packages\\jinja2\\__init__.py', reloading
+[April 20, 2024 19:48:27 India Standard Time] INFO | _internal >>>  * Detected change in 'J:\\Program Files\\Python\\Python311\\Lib\\site-packages\\jinja2\\environment.py', reloading
+[April 20, 2024 19:48:28 India Standard Time] INFO | _internal >>>  * Restarting with watchdog (windowsapi)
+[April 20, 2024 19:48:30 India Standard Time] WARNING | _internal >>>  * Debugger is active!
+[April 20, 2024 19:48:30 India Standard Time] INFO | _internal >>>  * Debugger PIN: 503-343-202
+[April 20, 2024 19:48:30 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 19:48:30 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 19:48:30 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 19:48:31 India Standard Time] INFO | _internal >>>  * Restarting with watchdog (windowsapi)
+[April 20, 2024 19:48:33 India Standard Time] WARNING | _internal >>>  * Debugger is active!
+[April 20, 2024 19:48:33 India Standard Time] INFO | _internal >>>  * Debugger PIN: 503-343-202
+[April 20, 2024 19:48:37 India Standard Time] INFO | _internal >>>  * Detected change in 'C:\\Users\\infan\\AppData\\Roaming\\Python\\Python311\\site-packages\\werkzeug\\sansio\\request.py', reloading
+[April 20, 2024 19:48:37 India Standard Time] INFO | _internal >>>  * Detected change in 'C:\\Users\\infan\\AppData\\Roaming\\Python\\Python311\\site-packages\\werkzeug\\_internal.py', reloading
+[April 20, 2024 19:48:38 India Standard Time] INFO | _internal >>>  * Restarting with watchdog (windowsapi)
+[April 20, 2024 19:48:40 India Standard Time] WARNING | _internal >>>  * Debugger is active!
+[April 20, 2024 19:48:40 India Standard Time] INFO | _internal >>>  * Debugger PIN: 503-343-202
+[April 20, 2024 19:48:48 India Standard Time] INFO | _internal >>>  * Detected change in 'J:\\Program Files\\Python\\Python311\\Lib\\typing.py', reloading
+[April 20, 2024 19:48:49 India Standard Time] INFO | _internal >>>  * Restarting with watchdog (windowsapi)
+[April 20, 2024 19:48:51 India Standard Time] WARNING | _internal >>>  * Debugger is active!
+[April 20, 2024 19:48:51 India Standard Time] INFO | _internal >>>  * Debugger PIN: 503-343-202
+[April 20, 2024 19:50:48 India Standard Time] INFO | _internal >>>  * Detected change in 'C:\\Users\\infan\\AppData\\Roaming\\Python\\Python311\\site-packages\\flask\\helpers.py', reloading
+[April 20, 2024 19:50:49 India Standard Time] INFO | _internal >>>  * Restarting with watchdog (windowsapi)
+[April 20, 2024 19:50:51 India Standard Time] WARNING | _internal >>>  * Debugger is active!
+[April 20, 2024 19:50:51 India Standard Time] INFO | _internal >>>  * Debugger PIN: 503-343-202
+[April 20, 2024 19:53:08 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 19:53:08 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 19:53:08 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 19:53:09 India Standard Time] INFO | _internal >>>  * Restarting with watchdog (windowsapi)
+[April 20, 2024 19:53:11 India Standard Time] WARNING | _internal >>>  * Debugger is active!
+[April 20, 2024 19:53:11 India Standard Time] INFO | _internal >>>  * Debugger PIN: 503-343-202
+[April 20, 2024 19:55:53 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 19:55:53 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 19:55:53 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 19:55:54 India Standard Time] INFO | _internal >>>  * Restarting with watchdog (windowsapi)
+[April 20, 2024 19:55:56 India Standard Time] WARNING | _internal >>>  * Debugger is active!
+[April 20, 2024 19:55:56 India Standard Time] INFO | _internal >>>  * Debugger PIN: 503-343-202
+[April 20, 2024 19:56:26 India Standard Time] INFO | _internal >>>  * Detected change in 'C:\\Users\\infan\\AppData\\Roaming\\Python\\Python311\\site-packages\\werkzeug\\datastructures\\file_storage.py', reloading
+[April 20, 2024 19:56:26 India Standard Time] INFO | _internal >>>  * Restarting with watchdog (windowsapi)
+[April 20, 2024 19:56:28 India Standard Time] WARNING | _internal >>>  * Debugger is active!
+[April 20, 2024 19:56:28 India Standard Time] INFO | _internal >>>  * Debugger PIN: 503-343-202
+[April 20, 2024 19:57:07 India Standard Time] INFO | _internal >>>  * Detected change in 'J:\\Program Files\\Python\\Python311\\Lib\\ntpath.py', reloading
+[April 20, 2024 19:57:08 India Standard Time] INFO | _internal >>>  * Restarting with watchdog (windowsapi)
+[April 20, 2024 19:57:09 India Standard Time] WARNING | _internal >>>  * Debugger is active!
+[April 20, 2024 19:57:09 India Standard Time] INFO | _internal >>>  * Debugger PIN: 503-343-202
+[April 20, 2024 19:57:22 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\BizBotz\\__init__.py', reloading
+[April 20, 2024 19:57:22 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\BizBotz\\__init__.py', reloading
+[April 20, 2024 19:57:22 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\BizBotz\\__init__.py', reloading
+[April 20, 2024 19:57:22 India Standard Time] INFO | _internal >>>  * Restarting with watchdog (windowsapi)
+[April 20, 2024 19:57:25 India Standard Time] WARNING | _internal >>>  * Debugger is active!
+[April 20, 2024 19:57:25 India Standard Time] INFO | _internal >>>  * Debugger PIN: 503-343-202
+[April 20, 2024 19:57:31 India Standard Time] INFO | _internal >>> [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[April 20, 2024 19:57:31 India Standard Time] INFO | _internal >>> [33mPress CTRL+C to quit[0m
+[April 20, 2024 19:57:31 India Standard Time] INFO | _internal >>>  * Restarting with watchdog (windowsapi)
+[April 20, 2024 19:57:32 India Standard Time] WARNING | _internal >>>  * Debugger is active!
+[April 20, 2024 19:57:32 India Standard Time] INFO | _internal >>>  * Debugger PIN: 503-343-202
+[April 20, 2024 19:57:52 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 19:57:52 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 19:57:53 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 19:57:53 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 19:57:53 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 19:57:53 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 19:57:54 India Standard Time] INFO | _internal >>>  * Restarting with watchdog (windowsapi)
+[April 20, 2024 19:57:56 India Standard Time] WARNING | _internal >>>  * Debugger is active!
+[April 20, 2024 19:57:56 India Standard Time] INFO | _internal >>>  * Debugger PIN: 503-343-202
+[April 20, 2024 19:58:03 India Standard Time] INFO | _internal >>>  * Detected change in 'C:\\Users\\infan\\AppData\\Roaming\\Python\\Python311\\site-packages\\werkzeug\\datastructures\\structures.py', reloading
+[April 20, 2024 19:58:04 India Standard Time] INFO | _internal >>>  * Restarting with watchdog (windowsapi)
+[April 20, 2024 19:58:05 India Standard Time] WARNING | _internal >>>  * Debugger is active!
+[April 20, 2024 19:58:05 India Standard Time] INFO | _internal >>>  * Debugger PIN: 503-343-202
+[April 20, 2024 19:58:06 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 19:58:06 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 19:58:06 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 19:58:07 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 19:58:07 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 19:58:07 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 19:58:07 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 19:58:07 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 19:58:07 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 19:58:07 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 19:58:08 India Standard Time] INFO | _internal >>>  * Restarting with watchdog (windowsapi)
+[April 20, 2024 19:58:10 India Standard Time] WARNING | _internal >>>  * Debugger is active!
+[April 20, 2024 19:58:10 India Standard Time] INFO | _internal >>>  * Debugger PIN: 503-343-202
+[April 20, 2024 19:58:52 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 19:58:54 India Standard Time] INFO | _internal >>>  * Restarting with watchdog (windowsapi)
+[April 20, 2024 19:58:56 India Standard Time] WARNING | _internal >>>  * Debugger is active!
+[April 20, 2024 19:58:56 India Standard Time] INFO | _internal >>>  * Debugger PIN: 503-343-202
+[April 20, 2024 19:58:58 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 19:58:58 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 19:58:58 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 19:58:58 India Standard Time] INFO | _internal >>>  * Restarting with watchdog (windowsapi)
+[April 20, 2024 19:59:00 India Standard Time] WARNING | _internal >>>  * Debugger is active!
+[April 20, 2024 19:59:00 India Standard Time] INFO | _internal >>>  * Debugger PIN: 503-343-202
+[April 20, 2024 19:59:46 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 19:59:46 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 19:59:46 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 19:59:47 India Standard Time] INFO | _internal >>>  * Restarting with watchdog (windowsapi)
+[April 20, 2024 19:59:49 India Standard Time] WARNING | _internal >>>  * Debugger is active!
+[April 20, 2024 19:59:49 India Standard Time] INFO | _internal >>>  * Debugger PIN: 503-343-202
+[April 20, 2024 19:59:50 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 19:59:50 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 19:59:50 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 19:59:50 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 19:59:50 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 19:59:50 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 19:59:51 India Standard Time] INFO | _internal >>>  * Restarting with watchdog (windowsapi)
+[April 20, 2024 19:59:53 India Standard Time] WARNING | _internal >>>  * Debugger is active!
+[April 20, 2024 19:59:53 India Standard Time] INFO | _internal >>>  * Debugger PIN: 503-343-202
+[April 20, 2024 20:01:11 India Standard Time] INFO | _internal >>>  * Detected change in 'C:\\Users\\infan\\AppData\\Roaming\\Python\\Python311\\site-packages\\sqlalchemy\\sql\\expression.py', reloading
+[April 20, 2024 20:01:11 India Standard Time] INFO | _internal >>>  * Detected change in 'C:\\Users\\infan\\AppData\\Roaming\\Python\\Python311\\site-packages\\sqlalchemy\\sql\\functions.py', reloading
+[April 20, 2024 20:01:11 India Standard Time] INFO | _internal >>>  * Detected change in 'C:\\Users\\infan\\AppData\\Roaming\\Python\\Python311\\site-packages\\sqlalchemy\\dialects\\mysql\\base.py', reloading
+[April 20, 2024 20:01:12 India Standard Time] INFO | _internal >>>  * Restarting with watchdog (windowsapi)
+[April 20, 2024 20:01:14 India Standard Time] WARNING | _internal >>>  * Debugger is active!
+[April 20, 2024 20:01:14 India Standard Time] INFO | _internal >>>  * Debugger PIN: 503-343-202
+[April 20, 2024 20:01:45 India Standard Time] INFO | _internal >>>  * Detected change in 'C:\\Users\\infan\\AppData\\Roaming\\Python\\Python311\\site-packages\\werkzeug\\utils.py', reloading
+[April 20, 2024 20:01:46 India Standard Time] INFO | _internal >>>  * Restarting with watchdog (windowsapi)
+[April 20, 2024 20:01:48 India Standard Time] WARNING | _internal >>>  * Debugger is active!
+[April 20, 2024 20:01:48 India Standard Time] INFO | _internal >>>  * Debugger PIN: 503-343-202
+[April 20, 2024 20:02:12 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 20:02:12 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 20:02:12 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 20:02:13 India Standard Time] INFO | _internal >>>  * Restarting with watchdog (windowsapi)
+[April 20, 2024 20:02:15 India Standard Time] WARNING | _internal >>>  * Debugger is active!
+[April 20, 2024 20:02:15 India Standard Time] INFO | _internal >>>  * Debugger PIN: 503-343-202
+[April 20, 2024 20:02:34 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 20:02:34 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 20:02:34 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 20:02:35 India Standard Time] INFO | _internal >>>  * Restarting with watchdog (windowsapi)
+[April 20, 2024 20:02:37 India Standard Time] WARNING | _internal >>>  * Debugger is active!
+[April 20, 2024 20:02:37 India Standard Time] INFO | _internal >>>  * Debugger PIN: 503-343-202
+[April 20, 2024 20:03:13 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 20:03:15 India Standard Time] INFO | _internal >>>  * Restarting with watchdog (windowsapi)
+[April 20, 2024 20:03:17 India Standard Time] WARNING | _internal >>>  * Debugger is active!
+[April 20, 2024 20:03:17 India Standard Time] INFO | _internal >>>  * Debugger PIN: 503-343-202
+[April 20, 2024 20:03:18 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 20:03:18 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 20:03:18 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 20:03:18 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 20:03:18 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 20:03:18 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 20:03:18 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 20:03:19 India Standard Time] INFO | _internal >>>  * Restarting with watchdog (windowsapi)
+[April 20, 2024 20:03:21 India Standard Time] WARNING | _internal >>>  * Debugger is active!
+[April 20, 2024 20:03:21 India Standard Time] INFO | _internal >>>  * Debugger PIN: 503-343-202
+[April 20, 2024 20:03:26 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 20:03:26 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 20:03:26 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 20:03:26 India Standard Time] INFO | _internal >>>  * Restarting with watchdog (windowsapi)
+[April 20, 2024 20:03:29 India Standard Time] WARNING | _internal >>>  * Debugger is active!
+[April 20, 2024 20:03:29 India Standard Time] INFO | _internal >>>  * Debugger PIN: 503-343-202
+[April 20, 2024 20:04:08 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\app.py', reloading
+[April 20, 2024 20:04:11 India Standard Time] INFO | _internal >>>  * Restarting with watchdog (windowsapi)
+[April 20, 2024 20:04:13 India Standard Time] WARNING | _internal >>>  * Debugger is active!
+[April 20, 2024 20:04:13 India Standard Time] INFO | _internal >>>  * Debugger PIN: 503-343-202
+[April 20, 2024 20:04:17 India Standard Time] INFO | _internal >>> [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[April 20, 2024 20:04:17 India Standard Time] INFO | _internal >>> [33mPress CTRL+C to quit[0m
+[April 20, 2024 20:04:17 India Standard Time] INFO | _internal >>>  * Restarting with watchdog (windowsapi)
+[April 20, 2024 20:04:18 India Standard Time] WARNING | _internal >>>  * Debugger is active!
+[April 20, 2024 20:04:18 India Standard Time] INFO | _internal >>>  * Debugger PIN: 503-343-202
+[April 20, 2024 20:04:21 India Standard Time] INFO | _internal >>>  * Detected change in 'C:\\Users\\infan\\AppData\\Roaming\\Python\\Python311\\site-packages\\flask\\app.py', reloading
+[April 20, 2024 20:04:21 India Standard Time] INFO | _internal >>>  * Detected change in 'C:\\Users\\infan\\AppData\\Roaming\\Python\\Python311\\site-packages\\flask\\templating.py', reloading
+[April 20, 2024 20:04:21 India Standard Time] INFO | _internal >>>  * Detected change in 'J:\\Program Files\\Python\\Python311\\Lib\\site-packages\\jinja2\\loaders.py', reloading
+[April 20, 2024 20:04:21 India Standard Time] INFO | _internal >>> 127.0.0.1 - - [20/Apr/2024 20:04:21] "[35m[1mGET / HTTP/1.1[0m" 500 -
+[April 20, 2024 20:04:22 India Standard Time] INFO | _internal >>>  * Restarting with watchdog (windowsapi)
+[April 20, 2024 20:04:24 India Standard Time] WARNING | _internal >>>  * Debugger is active!
+[April 20, 2024 20:04:24 India Standard Time] INFO | _internal >>>  * Debugger PIN: 503-343-202
+[April 20, 2024 20:04:24 India Standard Time] INFO | _internal >>> 127.0.0.1 - - [20/Apr/2024 20:04:24] "GET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+[April 20, 2024 20:04:24 India Standard Time] INFO | _internal >>> 127.0.0.1 - - [20/Apr/2024 20:04:24] "GET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+[April 20, 2024 20:04:24 India Standard Time] INFO | _internal >>> 127.0.0.1 - - [20/Apr/2024 20:04:24] "GET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+[April 20, 2024 20:04:26 India Standard Time] INFO | _internal >>> 127.0.0.1 - - [20/Apr/2024 20:04:26] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+[April 20, 2024 20:36:36 India Standard Time] INFO | _internal >>>  * Detected change in 'D:\\New Projects\\AIMayhem\\Bounty3-Lora\\BizBotz\\Models.py', reloading
+[April 20, 2024 20:36:37 India Standard Time] INFO | _internal >>>  * Restarting with watchdog (windowsapi)
+[April 20, 2024 20:36:39 India Standard Time] WARNING | _internal >>>  * Debugger is active!
+[April 20, 2024 20:36:39 India Standard Time] INFO | _internal >>>  * Debugger PIN: 503-343-202
+[April 20, 2024 20:44:55 India Standard Time] INFO | _internal >>>  * Detected change in 'C:\\Users\\infan\\AppData\\Roaming\\Python\\Python311\\site-packages\\flask\\blueprints.py', reloading
+[April 20, 2024 20:44:55 India Standard Time] INFO | _internal >>>  * Detected change in 'C:\\Users\\infan\\AppData\\Roaming\\Python\\Python311\\site-packages\\flask\\json\\__init__.py', reloading
+[April 20, 2024 20:44:55 India Standard Time] INFO | _internal >>>  * Detected change in 'C:\\Users\\infan\\AppData\\Roaming\\Python\\Python311\\site-packages\\flask\\signals.py', reloading
+[April 20, 2024 20:44:56 India Standard Time] INFO | _internal >>>  * Restarting with watchdog (windowsapi)
+[April 20, 2024 20:44:58 India Standard Time] WARNING | _internal >>>  * Debugger is active!
+[April 20, 2024 20:44:58 India Standard Time] INFO | _internal >>>  * Debugger PIN: 503-343-202
+[April 20, 2024 20:45:03 India Standard Time] INFO | _internal >>> [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[April 20, 2024 20:45:03 India Standard Time] INFO | _internal >>> [33mPress CTRL+C to quit[0m
+[April 20, 2024 20:45:03 India Standard Time] INFO | _internal >>>  * Restarting with watchdog (windowsapi)
+[April 20, 2024 20:45:05 India Standard Time] WARNING | _internal >>>  * Debugger is active!
+[April 20, 2024 20:45:06 India Standard Time] INFO | _internal >>>  * Debugger PIN: 503-343-202
+[April 20, 2024 20:45:07 India Standard Time] INFO | _internal >>> 127.0.0.1 - - [20/Apr/2024 20:45:07] "[35m[1mGET / HTTP/1.1[0m" 500 -
+[April 20, 2024 20:45:07 India Standard Time] INFO | _internal >>> 127.0.0.1 - - [20/Apr/2024 20:45:07] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+[April 20, 2024 20:45:07 India Standard Time] INFO | _internal >>> 127.0.0.1 - - [20/Apr/2024 20:45:07] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+[April 20, 2024 20:45:07 India Standard Time] INFO | _internal >>> 127.0.0.1 - - [20/Apr/2024 20:45:07] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+[April 20, 2024 20:45:08 India Standard Time] INFO | _internal >>> 127.0.0.1 - - [20/Apr/2024 20:45:08] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+[April 20, 2024 20:45:44 India Standard Time] INFO | _internal >>> [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[April 20, 2024 20:45:44 India Standard Time] INFO | _internal >>> [33mPress CTRL+C to quit[0m
+[April 20, 2024 20:45:44 India Standard Time] INFO | _internal >>>  * Restarting with watchdog (windowsapi)
+[April 20, 2024 20:45:46 India Standard Time] WARNING | _internal >>>  * Debugger is active!
+[April 20, 2024 20:45:46 India Standard Time] INFO | _internal >>>  * Debugger PIN: 503-343-202
+[April 20, 2024 20:46:12 India Standard Time] INFO | _internal >>> 127.0.0.1 - - [20/Apr/2024 20:46:12] "[35m[1mGET / HTTP/1.1[0m" 500 -
+[April 20, 2024 20:46:12 India Standard Time] INFO | _internal >>> 127.0.0.1 - - [20/Apr/2024 20:46:12] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+[April 20, 2024 20:46:12 India Standard Time] INFO | _internal >>> 127.0.0.1 - - [20/Apr/2024 20:46:12] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+[April 20, 2024 20:46:12 India Standard Time] INFO | _internal >>> 127.0.0.1 - - [20/Apr/2024 20:46:12] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+[April 20, 2024 20:46:13 India Standard Time] INFO | _internal >>> 127.0.0.1 - - [20/Apr/2024 20:46:13] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+[April 20, 2024 20:46:32 India Standard Time] INFO | _internal >>> 127.0.0.1 - - [20/Apr/2024 20:46:32] "GET / HTTP/1.1" 200 -
+[April 20, 2024 20:46:33 India Standard Time] INFO | _internal >>> 127.0.0.1 - - [20/Apr/2024 20:46:33] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[April 20, 2024 20:50:34 India Standard Time] INFO | _internal >>>  * Detected change in 'J:\\Program Files\\Python\\Python311\\Lib\\datetime.py', reloading
+[April 20, 2024 20:50:35 India Standard Time] INFO | _internal >>>  * Restarting with watchdog (windowsapi)
+[April 20, 2024 20:50:37 India Standard Time] WARNING | _internal >>>  * Debugger is active!
+[April 20, 2024 20:50:37 India Standard Time] INFO | _internal >>>  * Debugger PIN: 503-343-202
+[April 20, 2024 20:51:26 India Standard Time] INFO | _internal >>> 127.0.0.1 - - [20/Apr/2024 20:51:26] "GET / HTTP/1.1" 200 -
+[April 20, 2024 20:51:30 India Standard Time] INFO | _internal >>> 127.0.0.1 - - [20/Apr/2024 20:51:30] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[April 20, 2024 20:56:21 India Standard Time] INFO | _internal >>>  * Detected change in 'J:\\Program Files\\Python\\Python311\\Lib\\logging\\__init__.py', reloading
+[April 20, 2024 20:56:22 India Standard Time] INFO | _internal >>>  * Restarting with watchdog (windowsapi)
+[April 20, 2024 20:56:25 India Standard Time] WARNING | _internal >>>  * Debugger is active!
+[April 20, 2024 20:56:25 India Standard Time] INFO | _internal >>>  * Debugger PIN: 503-343-202
