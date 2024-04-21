@@ -33,14 +33,12 @@ babel = Babel(app)
 from langchain.vectorstores import Chroma
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.llms import OpenAI
 from langchain.chains import RetrievalQA
 from langchain_community.document_loaders import PyPDFLoader
 from langchain.document_loaders import DirectoryLoader
 from langchain_experimental.text_splitter import SemanticChunker
 from langchain_community.embeddings import HuggingFaceEmbeddings
-
-
+from langchain_text_splitters import CharacterTextSplitter
 dictConfig(
     {
         "version": 1,

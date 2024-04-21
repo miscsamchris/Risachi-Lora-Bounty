@@ -3,11 +3,137 @@ from BizBotz.Models import *
 import uuid
 from  flask import url_for
 import traceback
+from langchain.agents import AgentExecutor
+from langchain.agents.format_scratchpad import format_to_openai_function_messages
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain_openai import ChatOpenAI
+import json
+from langchain_core.agents import AgentActionMessageLog, AgentFinish
+from typing import List
+from langchain_core.pydantic_v1 import BaseModel, Field
+from langchain.tools.retriever import create_retriever_tool
+from langchain_openai import AzureOpenAIEmbeddings
+from langchain.tools.retriever import create_retriever_tool
+
+import json
+
+
+import time
 
 @app.route('/')
 def index():
     return render_template('create_dataset.html')
+def gpt_AgentBuilder():
+    from typing import List
 
+    from langchain_core.pydantic_v1 import BaseModel, Field
+
+
+    class Dataset_builder(BaseModel):
+        """Final response to the user based on the input"""
+
+        instructions: str = Field(description="Generic instructions to be followed for answering the folllowing questions for the solution")
+        questions: List[str] = Field(
+            description="A list of questions that can be asked based on the details provide by the company"
+        )
+        
+    def parse(output):
+        # If no function was invoked, return to user
+        if "function_call" not in output.additional_kwargs:
+            return AgentFinish(return_values={"output": output.content}, log=output.content)
+
+        # Parse out the function call
+        function_call = output.additional_kwargs["function_call"]
+        name = function_call["name"]
+        inputs = json.loads(function_call["arguments"])
+        print("Name is ",name,"\n")
+        # If the Response function was invoked, return to the user with the function inputs
+        if name == "Dataset_builder":
+            return AgentFinish(return_values=inputs, log=str(function_call))
+        # Otherwise, return an agent action
+        else:
+            return AgentActionMessageLog(
+                tool=name, tool_input=inputs, log="", message_log=[output]
+            )
+    prompt = ChatPromptTemplate.from_messages(
+        [
+            ("system", "You are a helpful assistant that provides information on the document in the formatted output"),
+            ("user", "{input}"),
+            MessagesPlaceholder(variable_name="agent_scratchpad"),
+        ]
+    )
+
+    llm = ChatOpenAI()
+
+    llm_with_tools = llm.bind_functions([Dataset_builder])
+    agent = (
+        {
+            "input": lambda x: x["input"],
+            # Format agent scratchpad from intermediate steps
+            "agent_scratchpad": lambda x: format_to_openai_function_messages(
+                x["intermediate_steps"]
+            ),
+        }
+        | prompt
+        | llm_with_tools
+        | parse
+    )
+
+    agent_executor = AgentExecutor(tools=[], agent=agent, verbose=True)
+    return agent_executor
+
+def gpt_datasetAgent(retriever):
+    
+
+    class Answer(BaseModel):
+        """Final response to the user based on the input"""
+        Answer: str = Field(description="Asnwer to the question asked  by taking data from the provide context from the dataset.")
+    def parse(output):
+        # If no function was invoked, return to user
+        if "function_call" not in output.additional_kwargs:
+            return AgentFinish(return_values={"output": output.content}, log=output.content)
+
+        # Parse out the function call
+        function_call = output.additional_kwargs["function_call"]
+        name = function_call["name"]
+        inputs = json.loads(function_call["arguments"])
+        print("Name is ",name,"\n")
+        # Otherwise, return an agent action
+        if name == "Answer":
+            return AgentFinish(return_values=inputs, log=str(function_call))
+        # Otherwise, return an agent action
+        else:
+            return AgentActionMessageLog(
+                tool=name, tool_input=inputs, log="", message_log=[output]
+            )
+    prompt = ChatPromptTemplate.from_messages(
+        [
+            ("system", "You are a helpful assistant that provides information on the document in the formatted output"),
+            ("user", "{data}"),
+            ("user", "{input}"),
+            MessagesPlaceholder(variable_name="agent_scratchpad"),
+        ]
+    )
+
+    llm = ChatOpenAI()
+
+    llm_with_tools = llm.bind_functions([Answer])
+    agent = (
+        {
+            "input": lambda x: x["input"],
+            "data": lambda x: x["data"],
+            # Format agent scratchpad from intermediate steps
+            "agent_scratchpad": lambda x: format_to_openai_function_messages(
+                x["intermediate_steps"]
+            ),
+        }
+        | prompt
+        | llm_with_tools
+        | parse
+    )
+
+    agent_executor = AgentExecutor(tools=[], agent=agent, verbose=True)
+    return agent_executor
 
 @app.route('/view_dataset/<string:item_uuid>/')
 def view_dataset(item_uuid):
@@ -15,13 +141,30 @@ def view_dataset(item_uuid):
     dataset=Dataset.query.filter_by(item_uuid=item_uuid).first()
     embedding = OpenAIEmbeddings()
     vectordb= Chroma(persist_directory=dataset.dataset_collection_name,embedding_function=embedding)
-    retriever = vectordb.as_retriever(search_kwargs={"k": 2})
-    docs = retriever.get_relevant_documents("What are the design goals of the whitepaper? ")
-    data=[]
-    for i in docs:
-        print(i,"\n\n========================================\n\n")
-        data.append({"Content":i.page_content})
-    return {"data":data}
+    retriever = vectordb.as_retriever()
+    agent=gpt_AgentBuilder()
+    resp=agent.invoke(
+      {"input": "The Main objective of this bot is to generate questions on the documents of a company called "+dataset.dataset_name+". It is described as follows "+dataset.dataset_description+".\
+        Create a list of 15 to 20 responses that simulate the following behaviour from an user point of view. '"+dataset.dataset_purpose+"'."},
+      return_only_outputs=True,
+    )
+    # print(resp["questions"])
+    output=[]
+    for question in resp["questions"]:
+        docs = retriever.get_relevant_documents(question)
+        data="### Context: "
+        for i in docs:
+            string_content=i.page_content.replace("\n"," ")
+            data+=str(string_content.encode('ascii', 'ignore'))+"\n\n"
+        resp_agent=gpt_datasetAgent(retriever)
+        answer=resp_agent.invoke(
+            {"input":question,"data":data },
+            return_only_outputs=True,
+        )
+        print(answer)
+        output.append({"instructions":resp["instructions"],"question":question,"data":data,"output":answer['Answer  ']})
+        time.sleep(20)
+    return {"data":output}
 
 @app.route('/create_dataset', methods=['POST'])
 def create_dataset():
@@ -39,7 +182,9 @@ def create_dataset():
         try:
             loader = DirectoryLoader(file_path, glob="./*.pdf", loader_cls=PyPDFLoader)
             documents = loader.load()
-            text_splitter = SemanticChunker(embeddings=HuggingFaceEmbeddings())
+            # text_splitter = SemanticChunker(embeddings=HuggingFaceEmbeddings())
+            text_splitter =CharacterTextSplitter.from_tiktoken_encoder(encoding_name="cl100k_base", chunk_size=300, chunk_overlap=0)
+            # text_splitter=RecursiveCharacterTextSplitter()
             texts = text_splitter.split_documents(documents)
             persist_directory = os.path.join(file_path,"Chroma")
             new_dataset = Dataset(dataset_name=dataset_name, dataset_description=dataset_description, dataset_purpose=dataset_purpose,dataset_collection_name=persist_directory)
@@ -83,4 +228,4 @@ def create_dataset():
     #     return redirect(request.url)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
