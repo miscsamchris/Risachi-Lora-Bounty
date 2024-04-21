@@ -12,13 +12,13 @@ from langchain_core.agents import AgentActionMessageLog, AgentFinish
 from typing import List
 from langchain_core.pydantic_v1 import BaseModel, Field
 from langchain.tools.retriever import create_retriever_tool
-from langchain_openai import AzureOpenAIEmbeddings
 from langchain.tools.retriever import create_retriever_tool
-
+import tiktoken
 import json
-
+import pickle
 
 import time
+from openai import OpenAI
 
 @app.route('/')
 def index():
@@ -32,9 +32,9 @@ def gpt_AgentBuilder():
     class Dataset_builder(BaseModel):
         """Final response to the user based on the input"""
 
-        instructions: str = Field(description="Generic instructions to be followed for answering the folllowing questions for the solution")
-        questions: List[str] = Field(
-            description="A list of questions that can be asked based on the details provide by the company"
+        instructions: str = Field(description="Write a prompt / instruction for the bot based on it's purpose and description. Make it long and make sure it follows the instructions.")
+        data_items: List[str] = Field(
+            description="A list of data that has been asked to be generated based on the details provide by the company"
         )
         
     def parse(output):
@@ -83,8 +83,6 @@ def gpt_AgentBuilder():
     return agent_executor
 
 def gpt_datasetAgent(retriever):
-    
-
     class Answer(BaseModel):
         """Final response to the user based on the input"""
         Answer: str = Field(description="Asnwer to the question asked  by taking data from the provide context from the dataset.")
@@ -135,36 +133,116 @@ def gpt_datasetAgent(retriever):
     agent_executor = AgentExecutor(tools=[], agent=agent, verbose=True)
     return agent_executor
 
-@app.route('/view_dataset/<string:item_uuid>/')
+def fine_tune_openai(filepath,data):
+    jsonlfile=open(filepath,"w+")
+    data_len=len(data)
+    for item in data:
+        system_message={"role":"system","content":item["instructions"]}
+        context_message={"role":"system","content":'Only Answer the questions from the given context '+item["data"]}
+        user_message={"role":"user","content":item["question"]}
+        assistant_message={"role":"assistant","content":item["output"]}
+        row_dict={"messages":[system_message,context_message,user_message,assistant_message]}
+        jsonlfile.write(json.dumps(row_dict)) 
+        jsonlfile.write("\n")
+    jsonlfile.close()
+    client = OpenAI()
+    resp=client.files.create(
+    file=open(filepath, "rb"),
+    purpose="fine-tune"
+    )
+    client.fine_tuning.jobs.create(
+    training_file="file-abc123", 
+    model="gpt-3.5-turbo"
+    )
+    print(resp)
+
+@app.route('/save_dataset/<string:item_uuid>/', methods=['POST',"GET"])
+def save_dataset(item_uuid):
+    item_uuid=uuid.UUID(item_uuid)
+    dataset=Dataset.query.filter_by(item_uuid=item_uuid).first()
+    dataset.dataset_status="Saved"
+    db.session.commit()
+    return redirect(url_for("view_dataset",item_uuid=item_uuid))
+
+@app.route('/start_finetuning/<string:item_uuid>/', methods=['POST',"GET"])
+def start_finetuning(item_uuid):
+    if request.method == 'POST':
+        option=request.form['Model_name']
+        item_uuid=uuid.UUID(item_uuid)
+        dataset=Dataset.query.filter_by(item_uuid=item_uuid).first()
+        file=open( dataset.dataset_collection_name.replace("Chroma","pickle.pkl"), "rb" )
+        data = pickle.load( file)
+        file.close()
+        if option=="OpenAI":
+            fine_tune_openai(dataset.dataset_collection_name.replace("Chroma","OpenAI_data.jsonl"),data)
+    return {"code":200}
+
+@app.route('/update_dataset/<string:item_uuid>/' ,methods=['POST',"GET"])
+def update_dataset(item_uuid):
+    if request.method == 'POST':
+        item_id=int(request.form['id'])
+        instructions=request.form['instructions']
+        question=request.form['question']
+        output=request.form['output']
+        item_uuid=uuid.UUID(item_uuid)
+        dataset=Dataset.query.filter_by(item_uuid=item_uuid).first()
+        file=open( dataset.dataset_collection_name.replace("Chroma","pickle.pkl"), "rb" )
+        data = pickle.load( file)
+        file.close()
+        for i in data:
+            print(i["ID"],"=====",item_id,i["ID"]==item_id)
+            if i["ID"]==item_id:
+                i["instructions"]=instructions
+                i["question"]=question
+                i["output"]=output
+        file=open( dataset.dataset_collection_name.replace("Chroma","pickle.pkl"), "wb" )
+        pickle.dump( data, file )
+        file.close()
+        return redirect(url_for("view_dataset",item_uuid=item_uuid))
+
+@app.route('/view_dataset/<string:item_uuid>/', methods=['POST',"GET"])
 def view_dataset(item_uuid):
     item_uuid=uuid.UUID(item_uuid)
     dataset=Dataset.query.filter_by(item_uuid=item_uuid).first()
-    embedding = OpenAIEmbeddings()
-    vectordb= Chroma(persist_directory=dataset.dataset_collection_name,embedding_function=embedding)
-    retriever = vectordb.as_retriever()
-    agent=gpt_AgentBuilder()
-    resp=agent.invoke(
-      {"input": "The Main objective of this bot is to generate questions on the documents of a company called "+dataset.dataset_name+". It is described as follows "+dataset.dataset_description+".\
-        Create a list of 15 to 20 responses that simulate the following behaviour from an user point of view. '"+dataset.dataset_purpose+"'."},
-      return_only_outputs=True,
-    )
-    # print(resp["questions"])
-    output=[]
-    for question in resp["questions"]:
-        docs = retriever.get_relevant_documents(question)
-        data="### Context: "
-        for i in docs:
-            string_content=i.page_content.replace("\n"," ")
-            data+=str(string_content.encode('ascii', 'ignore'))+"\n\n"
-        resp_agent=gpt_datasetAgent(retriever)
-        answer=resp_agent.invoke(
-            {"input":question,"data":data },
-            return_only_outputs=True,
+    if os.path.isfile(dataset.dataset_collection_name.replace("Chroma","pickle.pkl")):
+        file=open( dataset.dataset_collection_name.replace("Chroma","pickle.pkl"), "rb" )
+        output = pickle.load( file)
+        file.close()
+    else:
+        embedding = tiktoken.get_encoding("cl100k_base")
+        vectordb= Chroma(persist_directory=dataset.dataset_collection_name,embedding_function=embedding)
+        retriever = vectordb.as_retriever()
+        agent=gpt_AgentBuilder()
+        resp=agent.invoke(
+        {"input": "The Main objective of this bot is to generate data on the documents of a company called "+dataset.dataset_name+". It is described as follows "+dataset.dataset_description+".\
+            Create a list of 15 to 20 responses that simulate the following behaviour from an user point of view without referening the bot. '"+dataset.dataset_purpose+"'."},
+        return_only_outputs=True,
         )
-        print(answer)
-        output.append({"instructions":resp["instructions"],"question":question,"data":data,"output":answer['Answer  ']})
-        time.sleep(20)
-    return {"data":output}
+        print(resp["data_items"])
+        output=[]
+        count=1
+        for item in resp["data_items"]:
+            docs = retriever.get_relevant_documents(item)
+            data="### Context: "
+            for i in docs:
+                string_content=i.page_content.replace("\n"," ")
+                data+=str(string_content.encode('ascii', 'ignore'))+"\n\n"
+            resp_agent=gpt_datasetAgent(retriever)
+            answer=resp_agent.invoke(
+                {"input":item,"data":data },
+                return_only_outputs=True,
+            )
+            if answer.get("Answer",None)!=None:
+                output.append({"ID":count,"instructions":resp["instructions"],"question":item,"data":data,"output":answer['Answer']})
+            else:
+                output.append({"ID":count,"instructions":resp["instructions"],"question":item,"data":data,"output":answer['output']})
+            if count%3==0:
+                time.sleep(30)
+            count+=1
+        file=open( dataset.dataset_collection_name.replace("Chroma","pickle.pkl"), "wb" )
+        pickle.dump( output, file )
+        file.close()
+    return render_template("generate_dataset.html",output=output,dataset=dataset)
 
 @app.route('/create_dataset', methods=['POST'])
 def create_dataset():
@@ -187,13 +265,13 @@ def create_dataset():
             # text_splitter=RecursiveCharacterTextSplitter()
             texts = text_splitter.split_documents(documents)
             persist_directory = os.path.join(file_path,"Chroma")
-            new_dataset = Dataset(dataset_name=dataset_name, dataset_description=dataset_description, dataset_purpose=dataset_purpose,dataset_collection_name=persist_directory)
+            new_dataset = Dataset(dataset_status="Created",dataset_name=dataset_name, dataset_description=dataset_description, dataset_purpose=dataset_purpose,dataset_collection_name=persist_directory)
             # Add new_dataset to the database session
             db.session.add(new_dataset)
             # Commit changes to the database
             db.session.commit()
             ## here we are using OpenAI embeddings but in future we will swap out to local embeddings
-            embedding = OpenAIEmbeddings()
+            embedding = tiktoken.get_encoding("cl100k_base")
 
             vectordb = Chroma.from_documents(documents=texts, 
                                             embedding=embedding,

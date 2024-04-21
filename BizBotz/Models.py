@@ -43,6 +43,7 @@ class Dataset(db.Model):
     dataset_description=db.Column(db.Text,server_default='')
     company_id= db.Column(db.Integer, db.ForeignKey('Company.id'))
     dataset_purpose=db.Column(db.Text,server_default='')
+    dataset_status=db.Column(db.Text,server_default='Created')
     dataset_collection_name=db.Column(db.Text,server_default='')
     item_uuid = db.Column('item_uuid',UUID(),default=uuid.uuid4)
 

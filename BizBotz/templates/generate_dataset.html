@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dataset Form</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="mt-5">
+        <div class="table-responsive">
+            <table class="table table-borderless">
+                {% if dataset.dataset_status=="Created" %}
+                <thead>
+                    <tr>
+                        <th>Instructions</th>
+                        <th>Question</th>
+                        <th style="width: 30%">Data</th>
+                        <th>Response</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in output %}
+                    <form action="{{url_for('update_dataset',item_uuid=(dataset.item_uuid|string) )}}" method="post">
+                        <tr>
+                            <input type="hidden" name="id" id="id" value="{{ item.ID }}">
+                            <td><textarea rows="10" name="instructions" class="form-control"
+                                    id="instructions">{{ item.instructions }}</textarea></td>
+                            <td><textarea rows="10" name="question" id="question"
+                                    class="form-control">{{ item.question }}</textarea></td>
+                            <td>{{ item.data }}</td>
+                            <td><textarea rows="10" name="output" id="output"
+                                    class="form-control">{{ item.output }}</textarea></td>
+                            <td><button type="submit" class="btn btn-success">Submit</button></td>
+                        </tr>
+                    </form>
+                    {% endfor %}
+                    {% else %}
+                    <thead>
+                        <tr>
+                            <th>Instructions</th>
+                            <th>Question</th>
+                            <th style="width: 30%">Data</th>
+                            <th>Response</th>
+                        </tr>
+                    </thead>
+                <tbody>
+                    {% for item in output %}
+                    <tr>
+                        <td>{{ item.instructions }}</td>
+                        <td>{{ item.question }}</td>
+                        <td>{{ item.data }}</td>
+                        <td>{{ item.output }}</td>
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% if dataset.dataset_status=="Created" %}
+    <div class="container">
+        <a href="{{url_for('save_dataset',item_uuid=(dataset.item_uuid|string))}}" class="btn btn-success">Save
+            DataSet</a>
+    </div>
+    {% endif %}
+    {% if dataset.dataset_status=="Saved" %}
+    <div class="container">
+        <form id="traiingInitiateForm">
+            <div class="form-group">
+                <label for="Model_name">Select list:</label>
+                <select class="form-control" id="Model_name" name="Model_name">
+                    <option value="OpenAI">OpenAI - GPT 3.5 Turbo</option>
+                    <option value="LLAMA 3" disabled>Llama 3 - 8b-bnb-4bit</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-success">Start
+                Training
+                LoRA</button>
+        </form>
+
+    </div>
+    {% endif %}
+    <br>
+    <br><br><br>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#traiingInitiateForm').submit(function (e) {
+                e.preventDefault(); // Prevent form submission
+                var formData = new FormData(this);
+
+                // Perform AJAX submission
+                $.ajax({
+                    url: '{{ url_for("start_finetuning",item_uuid=(dataset.item_uuid|string)) }}', // Your form submission endpoint
+                    type: 'POST',
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        // Handle success response
+                        console.log(response);
+                        if (response.code == 200) {
+
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle error response
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
