@@ -1,4 +1,4 @@
-# BizBotz - Bake your Business Bots in a Blink
+# BizBotz - Bake your Business Bots in a Blink - [Demo](https://www.loom.com/share/7e46bce71ab64539bac3f1c39a6b27cf?sid=a358d35f-3d2d-4011-b42c-c8ef290d069d)
 ## Risachi Business AI Finetuning - LoRA
 ## Problem Statement:
 In today's digital landscape, businesses strive to personalize their interactions with customers. However, tailoring AI-driven communications to specific needs often proves challenging due to the lack of accessible tools. This project addresses this issue by providing a solution that enables businesses to input their details and train custom models based on a robust Large Language Model (LLM) text-to-text framework.
