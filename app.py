@@ -19,7 +19,7 @@ import pickle
 
 import time
 from openai import OpenAI
-
+import requests
 @app.route('/')
 def index():
     return render_template('create_dataset.html')
@@ -163,6 +163,106 @@ def fine_tune_openai(filepath,data):
         if update_status.status=="succeeded":
             break
     return str(update_status.fine_tuned_model)
+def finetune_llama_2(filepath,data):
+    from unsloth import FastLanguageModel
+    import torch
+    from datasets import Dataset
+    from trl import SFTTrainer
+    from transformers import TrainingArguments
+        max_seq_length = 2048 # Choose any! We auto support RoPE Scaling internally!
+    dtype = None # None for auto detection. Float16 for Tesla T4, V100, Bfloat16 for Ampere+
+    load_in_4bit = True # Use 4bit quantization to reduce memory usage. Can be False.
+
+    # 4bit pre quantized models we support for 4x faster downloading + no OOMs.
+    fourbit_models = [
+        "unsloth/mistral-7b-bnb-4bit",
+        "unsloth/mistral-7b-instruct-v0.2-bnb-4bit",
+        "unsloth/llama-2-7b-bnb-4bit",
+        "unsloth/gemma-7b-bnb-4bit",
+        "unsloth/gemma-7b-it-bnb-4bit", # Instruct version of Gemma 7b
+        "unsloth/gemma-2b-bnb-4bit",
+        "unsloth/gemma-2b-it-bnb-4bit", # Instruct version of Gemma 2b
+        "unsloth/llama-3-8b-bnb-4bit", # [NEW] 15 Trillion token Llama-3
+    ] # More models at https://huggingface.co/unsloth
+
+    model, tokenizer = FastLanguageModel.from_pretrained(
+        model_name = "unsloth/llama-3-8b-bnb-4bit",
+        max_seq_length = max_seq_length,
+        dtype = dtype,
+        load_in_4bit = load_in_4bit,
+        # token = "hf_...", # use one if using gated models like meta-llama/Llama-2-7b-hf
+    )
+    model = FastLanguageModel.get_peft_model(
+    model,
+    r = 16, # Choose any number > 0 ! Suggested 8, 16, 32, 64, 128
+    target_modules = ["q_proj", "k_proj", "v_proj", "o_proj",
+                      "gate_proj", "up_proj", "down_proj",],
+    lora_alpha = 16,
+    lora_dropout = 0, # Supports any, but = 0 is optimized
+    bias = "none",    # Supports any, but = "none" is optimized
+    # [NEW] "unsloth" uses 30% less VRAM, fits 2x larger batch sizes!
+    use_gradient_checkpointing = "unsloth", # True or "unsloth" for very long context
+    random_state = 3407,
+    use_rslora = False,  # We support rank stabilized LoRA
+    loftq_config = None, # And LoftQ
+    )
+    alpaca_prompt = """Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
+
+    ### Instruction:
+    {}
+
+    ### Input:
+    {}
+
+    ### Context:
+    {}
+
+    ### Response:
+    {}"""
+
+    EOS_TOKEN = tokenizer.eos_token # Must add EOS_TOKEN
+    def formatting_prompts_func(examples):
+        instructions = examples["instructions"]
+        inputs       = examples["question"]
+        contexts       = examples["data"]
+        outputs      = examples["output"]
+        texts = []
+        for instruction, input,context, output in zip(instructions, inputs,contexts, outputs):
+            # Must add EOS_TOKEN, otherwise your generation will go on forever!
+            text = alpaca_prompt.format(instruction, input,context, output) + EOS_TOKEN
+            texts.append(text)
+        return { "text" : texts,}
+    def gen():
+      for i in data:
+        yield i
+    dataset=Dataset.from_generator(gen)
+    dataset = dataset.map(formatting_prompts_func, batched = True,)
+    trainer = SFTTrainer(
+        model = model,
+        tokenizer = tokenizer,
+        train_dataset = dataset,
+        dataset_text_field = "text",
+        max_seq_length = max_seq_length,
+        dataset_num_proc = 2,
+        packing = False, # Can make training 5x faster for short sequences.
+        args = TrainingArguments(
+            per_device_train_batch_size = 2,
+            gradient_accumulation_steps = 4,
+            warmup_steps = 5,
+            max_steps = 5,
+            learning_rate = 2e-4,
+            fp16 = not torch.cuda.is_bf16_supported(),
+            bf16 = torch.cuda.is_bf16_supported(),
+            logging_steps = 1,
+            optim = "adamw_8bit",
+            weight_decay = 0.01,
+            lr_scheduler_type = "linear",
+            seed = 3407,
+            output_dir = "outputs",
+        ),
+    )
+    trainer_stats = trainer.train()
+    model.save_pretrained(filepath)
 
 @app.route('/save_dataset/<string:item_uuid>/', methods=['POST',"GET"])
 def save_dataset(item_uuid):
@@ -181,8 +281,13 @@ def start_finetuning(item_uuid):
         file=open( dataset.dataset_collection_name.replace("Chroma","pickle.pkl"), "rb" )
         data = pickle.load( file)
         file.close()
+        name=""
         if option=="OpenAI":
             name=fine_tune_openai(dataset.dataset_collection_name.replace("Chroma","OpenAI_data.jsonl"),data)
+        else:
+            json_data={"data":json.dumps(data),"filepath":dataset.dataset_name+str(uuid.uuid4())}
+            req=requests.post("https://c423-35-247-108-133.ngrok-free.app/finetune",data=json_data)
+            print(req.text)
     return {"code":200,"name":name,"redirect_url":url_for("view_dataset",item_uuid=item_uuid)}
 
 @app.route('/update_dataset/<string:item_uuid>/' ,methods=['POST',"GET"])
@@ -215,15 +320,16 @@ def view_dataset(item_uuid):
     if os.path.isfile(dataset.dataset_collection_name.replace("Chroma","pickle.pkl")):
         file=open( dataset.dataset_collection_name.replace("Chroma","pickle.pkl"), "rb" )
         output = pickle.load( file)
+        print(output)
         file.close()
     else:
-        embedding = tiktoken.get_encoding("cl100k_base")
+        embedding = OpenAIEmbeddings()
         vectordb= Chroma(persist_directory=dataset.dataset_collection_name,embedding_function=embedding)
         retriever = vectordb.as_retriever()
         agent=gpt_AgentBuilder()
         resp=agent.invoke(
         {"input": "The Main objective of this bot is to generate data on the documents of a company called "+dataset.dataset_name+". It is described as follows "+dataset.dataset_description+".\
-            Create a list of 15 to 20 responses that simulate the following behaviour from an user point of view without referening the bot. '"+dataset.dataset_purpose+"'."},
+            Create a list of 10 to 11 responses that simulate the following behaviour from an user point of view without referening the bot. '"+dataset.dataset_purpose+"'."},
         return_only_outputs=True,
         )
         print(resp["data_items"])
@@ -279,7 +385,7 @@ def create_dataset():
             # Commit changes to the database
             db.session.commit()
             ## here we are using OpenAI embeddings but in future we will swap out to local embeddings
-            embedding = tiktoken.get_encoding("cl100k_base")
+            embedding = OpenAIEmbeddings()
 
             vectordb = Chroma.from_documents(documents=texts, 
                                             embedding=embedding,
