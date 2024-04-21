@@ -150,11 +150,19 @@ def fine_tune_openai(filepath,data):
     file=open(filepath, "rb"),
     purpose="fine-tune"
     )
-    client.fine_tuning.jobs.create(
-    training_file="file-abc123", 
+    print("====================================================\n",resp)
+    training_resp=client.fine_tuning.jobs.create(
+    training_file=resp.id, 
     model="gpt-3.5-turbo"
     )
-    print(resp)
+    print("====================================================\n",training_resp)
+    while True:
+        update_status=client.fine_tuning.jobs.retrieve(training_resp.id)
+        time.sleep(10)
+        print("====================================================\n",update_status)
+        if update_status.status=="succeeded":
+            break
+    return str(update_status.fine_tuned_model)
 
 @app.route('/save_dataset/<string:item_uuid>/', methods=['POST',"GET"])
 def save_dataset(item_uuid):
@@ -174,8 +182,8 @@ def start_finetuning(item_uuid):
         data = pickle.load( file)
         file.close()
         if option=="OpenAI":
-            fine_tune_openai(dataset.dataset_collection_name.replace("Chroma","OpenAI_data.jsonl"),data)
-    return {"code":200}
+            name=fine_tune_openai(dataset.dataset_collection_name.replace("Chroma","OpenAI_data.jsonl"),data)
+    return {"code":200,"name":name,"redirect_url":url_for("view_dataset",item_uuid=item_uuid)}
 
 @app.route('/update_dataset/<string:item_uuid>/' ,methods=['POST',"GET"])
 def update_dataset(item_uuid):

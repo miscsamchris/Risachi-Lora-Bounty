@@ -4,12 +4,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dataset Form</title>
+    <title>BizBotz</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .spanner {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            background: #2a2a2a;
+            width: 100%;
+            display: block;
+            text-align: center;
+            height: 100%;
+            color: #FFF;
+            transform: translateY(-50%);
+            z-index: 1000;
+            visibility: hidden;
+        }
+
+        .overlay {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 1);
+            visibility: hidden;
+        }
+    </style>
 </head>
 
 <body>
+    <div class="overlay"></div>
+    <div class="spanner">
+        <button id="overlayClose" class="btn btn-danger" style="float: right; margin: 30px;">Close</button>
+        <div class="loader"></div>
+        <p id="loadingMessage"></p>
+    </div>
     <div class="mt-5">
         <div class="table-responsive">
             <table class="table table-borderless">
@@ -94,7 +124,9 @@
             $('#traiingInitiateForm').submit(function (e) {
                 e.preventDefault(); // Prevent form submission
                 var formData = new FormData(this);
-
+                // $("div.spanner").css('visibility', 'visible');
+                // $("div.overlay").css('visibility', 'visible');
+                // $("p#loadingMessage").text("Started The Fine-tuning")
                 // Perform AJAX submission
                 $.ajax({
                     url: '{{ url_for("start_finetuning",item_uuid=(dataset.item_uuid|string)) }}', // Your form submission endpoint
@@ -107,7 +139,10 @@
                         // Handle success response
                         console.log(response);
                         if (response.code == 200) {
-
+                            // $("p#loadingMessage").text("Finetuned to the dataset. Model Name is : " + response.name)
+                            // $("#overlayClose").click(function () {
+                            //     window.location.href = response.redirect_url;
+                            // });
                         }
                     },
                     error: function (xhr, status, error) {
@@ -116,6 +151,10 @@
                     }
                 });
             });
+        });
+        $("#overlayClose").click(function () {
+            $("div.spanner").css('visibility', 'hidden');;
+            $("div.overlay").css('visibility', 'hidden');;
         });
     </script>
 </body>
