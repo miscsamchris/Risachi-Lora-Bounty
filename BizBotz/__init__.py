@@ -39,6 +39,8 @@ from langchain.document_loaders import DirectoryLoader
 from langchain_experimental.text_splitter import SemanticChunker
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_text_splitters import CharacterTextSplitter
+from openai import OpenAI
+client = OpenAI()
 dictConfig(
     {
         "version": 1,

@@ -111,6 +111,9 @@
             <button type="submit" class="btn btn-success">Start
                 Training
                 LoRA</button>
+            <div class="container" id="Inference">
+
+            </div>
         </form>
 
     </div>
@@ -120,6 +123,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        var inference_template = $(` <div class="p-2 m-0 position-relative">
+                                    <a class="btn btn-success">Chat with Model</a>
+                                    </div>`)
         $(document).ready(function () {
             $('#traiingInitiateForm').submit(function (e) {
                 e.preventDefault(); // Prevent form submission
@@ -143,6 +149,9 @@
                             // $("#overlayClose").click(function () {
                             //     window.location.href = response.redirect_url;
                             // });
+                            var item = $(inference_template).clone()
+                            item.find("a").prop("href",response.redirect_url);
+                            $("#Inference").append(item);
                         }
                     },
                     error: function (xhr, status, error) {

@@ -18,7 +18,6 @@ import json
 import pickle
 
 import time
-from openai import OpenAI
 import requests
 @app.route('/')
 def index():
@@ -145,7 +144,6 @@ def fine_tune_openai(filepath,data):
         jsonlfile.write(json.dumps(row_dict)) 
         jsonlfile.write("\n")
     jsonlfile.close()
-    client = OpenAI()
     resp=client.files.create(
     file=open(filepath, "rb"),
     purpose="fine-tune"
@@ -169,7 +167,7 @@ def finetune_llama_2(filepath,data):
     from datasets import Dataset
     from trl import SFTTrainer
     from transformers import TrainingArguments
-        max_seq_length = 2048 # Choose any! We auto support RoPE Scaling internally!
+    max_seq_length = 2048 # Choose any! We auto support RoPE Scaling internally!
     dtype = None # None for auto detection. Float16 for Tesla T4, V100, Bfloat16 for Ampere+
     load_in_4bit = True # Use 4bit quantization to reduce memory usage. Can be False.
 
@@ -285,10 +283,12 @@ def start_finetuning(item_uuid):
         if option=="OpenAI":
             name=fine_tune_openai(dataset.dataset_collection_name.replace("Chroma","OpenAI_data.jsonl"),data)
         else:
-            json_data={"data":json.dumps(data),"filepath":dataset.dataset_name+str(uuid.uuid4())}
-            req=requests.post("https://c423-35-247-108-133.ngrok-free.app/finetune",data=json_data)
-            print(req.text)
-    return {"code":200,"name":name,"redirect_url":url_for("view_dataset",item_uuid=item_uuid)}
+            json_data={"data":json.dumps(data),"filepath":dataset.dataset_name}
+            req=requests.post("https://968b-34-29-84-120.ngrok-free.app/finetune",data=json_data)
+            response_dict = req.json()
+            print(response_dict)
+            name=os.path.join(dataset.dataset_name+str(uuid.uuid4()),"lora_model")
+    return {"code":200,"inference_id":name,"redirect_url":url_for("inference",item_uuid=item_uuid,model_type=option,inference_id=name)}
 
 @app.route('/update_dataset/<string:item_uuid>/' ,methods=['POST',"GET"])
 def update_dataset(item_uuid):
@@ -313,6 +313,55 @@ def update_dataset(item_uuid):
         file.close()
         return redirect(url_for("view_dataset",item_uuid=item_uuid))
 
+@app.route('/inference/<string:item_uuid>/<string:model_type>/<string:inference_id>/', methods=['POST',"GET"])
+def inference(item_uuid,model_type,inference_id):
+    return render_template("inference.html",item_uuid=item_uuid,model_type=model_type,inference_id=inference_id)
+
+@app.route('/chat_with_model', methods=['POST'])
+def chat_with_model():
+    if request.method == 'POST':
+        model_type = request.form['model_type']
+        inference_id = request.form['inference_id']
+        item_uuid = request.form['item_uuid']
+        chatText = request.form['chatText']
+        item_uuid=uuid.UUID(item_uuid)
+        dataset=Dataset.query.filter_by(item_uuid=item_uuid).first()
+        if model_type=="OpenAI":
+            embedding = OpenAIEmbeddings()
+            vectordb= Chroma(persist_directory=dataset.dataset_collection_name,embedding_function=embedding)
+            retriever = vectordb.as_retriever()
+            docs = retriever.get_relevant_documents(chatText)
+            data="### Context: "
+            for i in docs:
+                string_content=i.page_content.replace("\n"," ")
+                data+=str(string_content.encode('ascii', 'ignore'))+"\n\n"
+            completion = client.chat.completions.create(
+            model=inference_id,
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "user", "content": data },
+                {"role": "user", "content": chatText },
+            ]
+            )
+            print(completion.choices[0].message)
+            response=completion.choices[0].message
+            return {"code":200,"message":response.content}
+        else:
+            embedding = OpenAIEmbeddings()
+            vectordb= Chroma(persist_directory=dataset.dataset_collection_name,embedding_function=embedding)
+            retriever = vectordb.as_retriever()
+            docs = retriever.get_relevant_documents(chatText)
+            model_path=dataset.dataset_name+"/lora_model"
+            instructions="You are a helpful assistant that provides responses on the given context"
+            data="### Context: "
+            for i in docs:
+                string_content=i.page_content.replace("\n"," ")
+                data+=str(string_content.encode('ascii', 'ignore'))+"\n\n"
+            json_data={"model_path":model_path,"instructions":instructions,"context":data,"question":chatText}
+            req=requests.post("https://968b-34-29-84-120.ngrok-free.app/run_inference",data=json_data)
+            response_dict = req.json()  
+            print(response_dict)
+            return {"code":200,"message":response_dict["content"]}
 @app.route('/view_dataset/<string:item_uuid>/', methods=['POST',"GET"])
 def view_dataset(item_uuid):
     item_uuid=uuid.UUID(item_uuid)

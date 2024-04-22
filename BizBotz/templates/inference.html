@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BizBotz</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .baloon-right,
+        .baloon-message,
+        .baloon-left {
+
+            margin-top: 5px !important;
+            margin-bottom: 5px !important;
+
+        }
+
+
+        .baloon-right a {
+            text-decoration: none !important;
+            background: #42a5f5;
+            color: #fff !important;
+            border-radius: 20px 20px 3px 20px;
+            display: block;
+            max-width: 75%;
+            padding: 7px 13px 7px 13px;
+
+        }
+
+        .baloon-right:before {
+
+            content: attr(data-is);
+            position: absolute;
+            right: 15px;
+            bottom: -0.8em;
+            display: block;
+            font-size: .750rem;
+            color: rgba(84, 110, 122, 1.0);
+
+        }
+
+        .baloon-left a {
+
+            text-decoration: none !important;
+            background: #f1f1f1;
+            color: #000 !important;
+            border-radius: 20px 20px 20px 3px;
+            display: block;
+            max-width: 75%;
+            padding: 7px 13px 7px 13px;
+
+        }
+
+        .baloon-left:before {
+
+            content: attr(data-is);
+            position: absolute;
+            left: 13px;
+            bottom: -0.8em;
+            display: block;
+            font-size: .750rem;
+            color: rgba(84, 110, 122, 1.0);
+
+        }
+
+        .baloon-message a {
+
+            text-decoration: none !important;
+            background: #4def60;
+            color: #000 !important;
+            border-radius: 20px 20px 20px 3px;
+            display: block;
+            max-width: 75%;
+            padding: 7px 13px 7px 13px;
+
+        }
+
+        .baloon-message:before {
+
+            content: attr(data-is);
+            position: absolute;
+            left: 13px;
+            bottom: -0.8em;
+            display: block;
+            font-size: .750rem;
+            color: rgba(84, 110, 122, 1.0);
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="jumbotron m-0 p-0 bg-transparent">
+        <div class="card border-0 rounded">
+            <div class="card border-0 m-0 p-0">
+                <div class="card border-0 m-0 p-0 position-relative bg-transparent"
+                    style="overflow-y: auto; height: 90vh;" id="chatBoxInterface">
+                </div>
+            </div>
+
+            <div class="w-100 card-footer p-0 bg-light border border-bottom-0 border-left-0 border-right-0">
+
+                <form class="m-0 p-0" id="chatContentForm">
+                    <div class="row m-0 p-0">
+                        <div class="col-9 m-0 p-1">
+                            <input id="model_type" type="hidden" name="model_type" value="{{model_type}}">
+                            <input id="inference_id" type="hidden" name="inference_id" value="{{inference_id}}">
+                            <input id="item_uuid" type="hidden" name="item_uuid" value="{{item_uuid}}">
+                            <input id="chatText" class="mw-100 border rounded form-control" type="text" name="chatText"
+                                title="Type your feedback to update..." placeholder="Type your feedback to update..."
+                                required>
+
+                        </div>
+                        <div class="col-3 m-0 p-1">
+
+                            <button class="btn btn-outline-secondary rounded border w-100" type="submit"
+                                style="padding-right: 16px;">Send Query</button>
+
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap JS (Optional, if needed) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        var baloon_template = $(` <div class="p-2 m-0 position-relative">
+                                    <a class=""></a>
+                                    </div>`)
+        $("form#chatContentForm").submit(function (e) {
+            e.preventDefault();
+            var formData = new FormData($(this)[0]);
+            document.getElementById("chatContentForm").reset();
+            var item = $(baloon_template).clone()
+            item.addClass("baloon-right");
+            item.find("a").addClass("float-right");
+            item.find("a").text(formData.get("chatText"));
+            $("#chatBoxInterface").append(item);
+            $('#chatBoxInterface').scrollTop($('#chatBoxInterface')[0].scrollHeight);
+            $.ajax({
+                url: "{{url_for('chat_with_model')}}",
+                type: 'POST',
+                data: formData,
+                success: function (data) {
+                    if (data.code == 200) {
+                        item = $(baloon_template).clone()
+                        item.addClass("baloon-left");
+                        item.find("a").addClass("float-left");
+                        item.find("a").text(data.message);
+                        $("#chatBoxInterface").append(item);
+                        $('#chatBoxInterface').scrollTop($('#chatBoxInterface')[0].scrollHeight);
+                    }
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            });
+        });
+    </script>
+</body>
+
+</html>
